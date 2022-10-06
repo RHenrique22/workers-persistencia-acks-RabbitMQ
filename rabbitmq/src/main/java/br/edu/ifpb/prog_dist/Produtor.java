@@ -21,7 +21,7 @@ public class Produtor {
                 Channel    channel    = connection.createChannel();
         ) {
             channel.queueDeclare(NAME_QUEUE, true, false, false, null);
-            String mensagem = String.join("", args);
+            String mensagem = "Hello...World...Roosevelt Henrique de Lima Ferreira";
             channel.basicPublish("", NAME_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, mensagem.getBytes("UTF-8"));
             System.out.printf("Enviei a mensagem: '%s'%n", mensagem);
         }

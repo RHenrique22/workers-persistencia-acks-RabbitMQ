@@ -29,14 +29,14 @@ public class Consumidor {
         factory.setUsername("mqadmin");
         factory.setPassword("Admin123XX_");
 
-        System.out.println ("Aguardando mensagens...\nPara sair, pressione CTRL + C");
+        System.out.println("Aguardando mensagens...\nPara sair, pressione CTRL + C");
 
         Connection connection = factory.newConnection();
         Channel    channel    = connection.createChannel();
 
         channel.basicQos(1);
 
-        channel.queueDeclare(NAME_QUEUE, false, false, false, null);
+        channel.queueDeclare(NAME_QUEUE, true, false, false, null);
 
         DeliverCallback callback = (consumerTag, deliver) -> {
             String mensagem = new String(deliver.getBody(), StandardCharsets.UTF_8);
@@ -47,7 +47,7 @@ public class Consumidor {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                System.out.print("Finalizado");
+                System.out.println("Finalizado");
                 channel.basicAck(deliver.getEnvelope().getDeliveryTag(), false);
             }
         };
